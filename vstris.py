@@ -1,4 +1,5 @@
 import pygame
+from pygame.locals import *
 import os
 from typing import List, Tuple
 
@@ -35,9 +36,18 @@ class Vstris:
     def __init__(self, window: pygame.Surface, dimensions: Tuple[int, int]):
         self.win = window
         self.running = True
+        self.fullscreen = True
         self.mode = "main_menu"
         Vstris.WIDTH = dimensions[0]
         Vstris.HEIGHT = dimensions[1]
+
+        # IMAGE ASSETS ------------------ #
+        self.background = pygame.image.load(os.path.join("assets", "backdrop", "backdrop.png")).convert()
+        self.board = pygame.image.load(os.path.join("assets", "board", "board.png")).convert()
+        
+        # Blocks
+        self.block_1 = pygame.image.load(os.path.join("assets", "backdrop", "backdrop.png")).convert()
+
 
 
     def run(self):
@@ -52,18 +62,38 @@ class Vstris:
         while self.running:
             CLOCK.tick(Vstris.FPS)
             
-            # EVENT HANDLING --------------------
+            # EVENT HANDLING -------------------- #
             for event in pygame.event.get():
                 
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     return
 
-            # CLEAR FRAME -----------------------
+                if event.type == pygame.KEYDOWN:
+                    if event.key == K_F11:
+                        self.fullscreen = not self.fullscreen
+                        if self.fullscreen:
+                            self.win = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+                        else:
+                            self.win = pygame.display.set_mode((1000, 800))
+
+            # CLEAR FRAME ----------------------- #
             self.win.fill(Vstris.BACKGROUND)
+            #self.win.blit(self.background, (0, 0))
+            self.win.blit(self.board, (350, 100))
+
+            # PICK STATE AND DRAW --------------- #
+            if self.mode == "main_menu":
+                pass
+
+            elif self.mode == "settings":
+                pass
+
+            elif self.mode == "singeplayer":
+                pass
 
 
-            # UPDATE SCREEN ---------------------
+            # UPDATE SCREEN --------------------- #
             pygame.display.update()
 
 
@@ -74,7 +104,7 @@ if __name__ == "__main__":
     # Initialize pygame modules -----------------
     pygame.display.init()
     pygame.display.set_caption("Vstris!")
-    win = pygame.display.set_mode((1000, 800))
+    win = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 
     # Start game --------------------------------
     Vstris(win, win.get_size()).run()
