@@ -1,0 +1,1 @@
+# vstris is an app clone of jstris. Coded in python with pygame and sockets
