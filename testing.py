@@ -41,6 +41,7 @@ class Testing:
         size = self.im1.get_size()
         self.im1 = pygame.transform.scale(self.im1, (size[0] * 1, size[1] * 1))
         self.im1 = effects.blur_surface(self.im1, 2)
+        self.im1 = effects.surf_brightness(self.im1, 0)
 
 
     def run(self):
