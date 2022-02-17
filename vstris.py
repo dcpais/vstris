@@ -1,4 +1,4 @@
-import backdrop
+import effects
 
 import pygame
 import os
@@ -36,17 +36,22 @@ class Vstris:
         self.fullscreen = True
         self.mode = "load"
         self.scale = 1
+        self.blurred = False
+        self.toggle_fullscreen()
         Vstris.WIDTH = dimensions[0]
         Vstris.HEIGHT = dimensions[1]
 
         # LOAD ASSETS -------------------------- #
         self.load_assets(self.scale)
 
-        #
+        # GAME --------------------------------- #
+
+
 
     def load_assets(self, scale: float):
         # LOAD TEXTS ------------------- #
         self.title = Vstris.FONT.render("Vstris", True, Vstris.WHITE,)
+        
 
         # LOAD IMAGES ------------------ #
         self.board_img = pygame.image.load(os.path.join("assets", "Board", "board.png")).convert()
@@ -60,11 +65,12 @@ class Vstris:
         self.block_7 = pygame.image.load(os.path.join("assets", "Tetriminos", "blue.png")).convert()
         
         self.backdrop = pygame.image.load(os.path.join("assets", "Backdrop", "Backdrop.png")).convert()
-        
-        
+        self.backdrop = effects.blur_surface(self.backdrop, 2)
+
 
         # SCALE IMAGE ------------------- #
         self.board = pygame.transform.scale(self.board_img, (self.board_img.get_size()))
+        
 
     def run(self):
         """
@@ -90,11 +96,9 @@ class Vstris:
                         self.toggle_fullscreen()
                     elif event.key == K_ESCAPE:
                         self.mode == "pause"
-                        
 
             # CLEAR FRAME ----------------------- #
             self.win.blit(self.backdrop, (0,0))
-
 
             # PICK STATE AND DRAW --------------- #
             if self.mode == "load":
