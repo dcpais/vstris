@@ -1,5 +1,6 @@
 import effects
 import animated
+import blocks
 
 import pygame
 import os
@@ -43,7 +44,7 @@ class Vstris:
         self.win = window
         self.running = True
         self.fullscreen = True
-        self.mode = "main_menu"
+        self.mode = "intro"
         self.scale = 1
         self.blurred = False
         Vstris.WIDTH = dimensions[0]
@@ -110,7 +111,6 @@ class Vstris:
 
         self.load_ticks += 1
         
-        
 
     def draw_title(self):
         self.win.blit(self.title, (100, 100))
@@ -176,12 +176,12 @@ class Vstris:
             # PICK STATE AND DRAW --------------- #
             if self.mode == "intro":
                 self.draw_loading()
+                
 
             elif self.mode == "main_menu":
                 self.draw_title()
                 self.draw_menu()
                 self.draw_version() 
-                self.win.blit(self.block_1, (100, 100))
 
             elif self.mode == "settings":
                 pass
