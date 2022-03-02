@@ -2,6 +2,11 @@ from PIL import Image, ImageFilter, ImageEnhance
 import PIL
 import pygame
 
+"""
+Simple visual effects library using PIL to manipulate 
+pygame surfaces. Made for the purposes of Vstris
+"""
+
 def surf_to_image(surface: pygame.Surface) -> Image:
     """
     Converts pygame surface into PIL image

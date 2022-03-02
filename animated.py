@@ -27,7 +27,10 @@ class Animated:
         self.state = start_state
         self.ticks = 0
         self.tick_delta = int(tick_delta)
-        self.updater = partial(update_func, *func_args)
+        if func_args:
+            self.updater = partial(update_func, *func_args)
+        else:
+            self.updater = partial(update_func)
 
 
     def tick(self, next_state: Optional[any] = None):
@@ -40,7 +43,7 @@ class Animated:
         if next_state is not None:
             self.state = next_state
         elif self.ticks % self.tick_delta == 0:
-            self.state = self.updater(self.state)
+            self.state = self.updater()
         self.ticks += 1
     
 

@@ -42,23 +42,40 @@ class Blocks:
 
     @staticmethod
     def get_block(block_id: str) -> pygame.Surface:
+        """
+        Get a block surface by its ID
+        """
         return Blocks.BLOCKS.get(block_id)
 
     @staticmethod
-    def get_block_list() -> Dict[str: pygame.Surface]:
+    def get_block_dict() -> Dict:
+        """
+        Get the dict of all block surfaces
+        """
         return Blocks.BLOCKS
 
     @staticmethod
-    def get_block_outlines(block_id: str) -> pygame.Surface:
+    def get_block_outline(block_id: str) -> pygame.Surface:
+        """
+        Get the 2D array outline mapping of a block given
+        its ID
+        """
         return Blocks.BLOCK_OUTLINES.get(block_id)
 
     @staticmethod
-    def get_all_outlines() -> Dict[str: pygame.Surface]:
+    def get_all_outlines() -> Dict:
+        """
+        Get the dict of all block outline mappings
+        """
         return Blocks.BLOCK_OUTLINES
 
     @staticmethod
-    def get_blurred_blocks() -> Dict[str: pygame.Surface]:
+    def get_blurred_blocks() -> Dict:
+        """
+        Get the dict of all blurred block images 
+        (specifically for background.py)
+        """
         ret = dict()
-        for key, val in Blocks.BLOCKS:
+        for key, val in Blocks.BLOCKS.items():
             ret[key] = effects.blur_surface(3, val)
         return ret
