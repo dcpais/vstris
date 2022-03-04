@@ -5,32 +5,46 @@ from typing import Dict, Tuple
 
 class Blocks:
     """ 
-    Static container class for block surfaces
-    Acts as a static class, which
+    Static class used as a holder for all block surfaces and 
     """
 
     # BLOCK IMAGES ------------------------------- #
-    BLOCK_1 = pygame.image.load(os.path.join("assets", "Tetriminos", "Purple.png")).convert_alpha()
-    BLOCK_2 = pygame.image.load(os.path.join("assets", "Tetriminos", "yellow.png")).convert_alpha()
-    BLOCK_3 = pygame.image.load(os.path.join("assets", "Tetriminos", "red.png")).convert_alpha()
-    BLOCK_4 = pygame.image.load(os.path.join("assets", "Tetriminos", "green.png")).convert_alpha()
-    BLOCK_5 = pygame.image.load(os.path.join("assets", "Tetriminos", "orange.png")).convert_alpha()
-    BLOCK_6 = pygame.image.load(os.path.join("assets", "Tetriminos", "dark_blue.png")).convert_alpha()
-    BLOCK_7 = pygame.image.load(os.path.join("assets", "Tetriminos", "blue.png")).convert_alpha()
+    BLOCK_1 = None
+    BLOCK_2 = None
+    BLOCK_3 = None
+    BLOCK_4 = None
+    BLOCK_5 = None
+    BLOCK_6 = None
+    BLOCK_7 = None
     
-    # BLOCK LIST --------------------------------- #
-    BLOCKS = {
-        "purple" : BLOCK_1,
-        "yellow" : BLOCK_2,
-        "red" : BLOCK_3,
-        "green" : BLOCK_4,
-        "orange" : BLOCK_5,
-        "dark_blue" : BLOCK_6,
-        "blue" : BLOCK_7
+    # BLOCK LISTS --------------------------------- #
+    BLOCKS = None
+    BLOCK_OUTLINES = None
+
+    @staticmethod
+    def init():
+        """
+        Load all block images
+        """
+        Blocks.BLOCK_1 = pygame.image.load(os.path.join("assets", "Tetriminos", "Purple.png")).convert_alpha()
+        Blocks.BLOCK_2 = pygame.image.load(os.path.join("assets", "Tetriminos", "yellow.png")).convert_alpha()
+        Blocks.BLOCK_3 = pygame.image.load(os.path.join("assets", "Tetriminos", "red.png")).convert_alpha()
+        Blocks.BLOCK_4 = pygame.image.load(os.path.join("assets", "Tetriminos", "green.png")).convert_alpha()
+        Blocks.BLOCK_5 = pygame.image.load(os.path.join("assets", "Tetriminos", "orange.png")).convert_alpha()
+        Blocks.BLOCK_6 = pygame.image.load(os.path.join("assets", "Tetriminos", "dark_blue.png")).convert_alpha()
+        Blocks.BLOCK_7 = pygame.image.load(os.path.join("assets", "Tetriminos", "blue.png")).convert_alpha()
+
+        Blocks.BLOCKS = {
+        "purple" : Blocks.BLOCK_1,
+        "yellow" : Blocks.BLOCK_2,
+        "red" : Blocks.BLOCK_3,
+        "green" : Blocks.BLOCK_4,
+        "orange" : Blocks.BLOCK_5,
+        "dark_blue" : Blocks.BLOCK_6,
+        "blue" : Blocks.BLOCK_7
         }
-        
-    # BLOCK SIZES -------------------------------- #
-    BLOCK_OUTLINES = {
+
+        Blocks.BLOCK_OUTLINES = {
         "purple" : [[0, 1, 0], [1, 1, 1]],
         "yellow" : [[1, 1], [1, 1]],
         "red" : [[1, 1, 0], [0, 1, 1]],
@@ -38,7 +52,9 @@ class Blocks:
         "orange" : [[0, 0, 1], [1, 1, 1]],
         "dark_blue" : [[1, 0, 0], [1, 1, 1]],
         "blue" : [[1, 1, 1, 1]]
-    }
+        }
+
+        
 
     @staticmethod
     def get_block(block_id: str) -> pygame.Surface:
@@ -48,7 +64,7 @@ class Blocks:
         return Blocks.BLOCKS.get(block_id)
 
     @staticmethod
-    def get_block_dict() -> Dict:
+    def get_blocks() -> Dict:
         """
         Get the dict of all block surfaces
         """
@@ -77,5 +93,5 @@ class Blocks:
         """
         ret = dict()
         for key, val in Blocks.BLOCKS.items():
-            ret[key] = effects.blur_surface(3, val)
+            ret[key] = effects.blur_surface(val, 1)
         return ret

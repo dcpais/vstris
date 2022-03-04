@@ -22,7 +22,7 @@ def image_to_surf(image: Image) -> pygame.Surface:
     return pygame.image.fromstring(image.tobytes(), image._size, "RGBA")
 
 
-def blur_surface(r: float, surface: pygame.Surface) -> pygame.surface:
+def blur_surface(surface: pygame.Surface, r: float) -> pygame.surface:
     """
     Blurs a pygame surface with Gaussian Blur a
     """
@@ -30,7 +30,7 @@ def blur_surface(r: float, surface: pygame.Surface) -> pygame.surface:
         .filter(ImageFilter.GaussianBlur(radius = r)))
 
 
-def surf_brightness(factor: float, surface: pygame.Surface) -> pygame.Surface:
+def surf_brightness(surface: pygame.Surface, factor: float) -> pygame.Surface:
     """
     Adjusts a pygame surface's brightness given a factor:
             FACTOR -> 1.0 gives the original image 
@@ -42,7 +42,7 @@ def surf_brightness(factor: float, surface: pygame.Surface) -> pygame.Surface:
     return image_to_surf(_)
 
 
-def surf_hue(colour: str, surface: pygame.Surface) -> pygame.Surface:
+def surf_hue(surface: pygame.Surface, colour: str) -> pygame.Surface:
     """
     Adjusts the hue of a pygame surface given a hue colour:
             COLOUR -> 
@@ -50,7 +50,7 @@ def surf_hue(colour: str, surface: pygame.Surface) -> pygame.Surface:
     raise NotImplementedError
 
 
-def adjust_alpha(amount: int, surface: pygame.Surface) -> pygame.Surface:
+def adjust_alpha(surface: pygame.Surface, amount: int) -> pygame.Surface:
     """
     adjust's the alpha of a pygame surface by 'amount', based on the current
     alpha of the surface.
