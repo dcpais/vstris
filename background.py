@@ -18,7 +18,7 @@ class Background:
     moving parts to this animation
     """
 
-    def __init__(self, blocks: List[pygame.Surface]):
+    def __init__(self):
         """
         Initialize backdrop
         """
@@ -83,7 +83,7 @@ class Background:
         """
         if self.ticks % (Game.FPS // 5) == 0 and random.random() < 0.3:
             new_block = random.choice(self.block_list)
-            x = random.randrange(0, Game.WIDTH - new_block.get_size()[0], 31)
+            x = random.randrange(0, Game.WIDTH - new_block.get_size()[0], 30)
             y = -1 * new_block.get_size()[1]
             self.block_states.append((new_block, (x, y), 0))
 

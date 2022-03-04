@@ -13,11 +13,12 @@ class Game:
     ### Metrics.start()
     """
 
-    WINDOW = None
+    WIN = None
     RESOLUTION = None
     WIDTH = None
     HEIGHT = None
     CLOCK = None
+    FONT = None
     FPS = None
     SCALE = None
     IS_FULLSCREEN = None
@@ -43,6 +44,7 @@ class Game:
         Game.CLOCK = pygame.time.Clock()
         Game.FPS = 144
         Game.SCALE = 1
+        Game.FONT = pygame.font.SysFont("Fira Code", 200)
         Game.IS_FULLSCREEN = True
         Game.MODE = "loading"       
 

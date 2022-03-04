@@ -1,25 +1,28 @@
-from transitions import *
-from background import *
-from blocks import *
-from game import *
+from transitions import LoadAnimation
+from background import Background
+from blocks import Blocks
+from game import Game
+from menu import MainMenu
+from sounds import Sounds
 
 import pygame
 from pygame.locals import *
-
-# ASSETS ------------------------------------------ #
-#if not pygame.font.get_init(): pygame.font.init()
-#FONT = pygame.font.SysFont("Fira Code", 60)
   
 def run():
     """
     Main game loop
     """
     load_screen = LoadAnimation()
-    background = Background(Blocks.get_blocks().values())
-    Game.set_game_mode("main_menu")
+    background = Background()
+    main_menu = MainMenu()
+    Sounds.MUSIC.play()
+    Game.set_game_mode("loading")
 
     while True:
+
         Game.CLOCK.tick(Game.FPS)
+        mx, my = pygame.mouse.get_pos()
+        click = False
 
         # EVENT HANDLING -------------------- #
         for event in pygame.event.get():
@@ -27,12 +30,17 @@ def run():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
+                
             if event.type == pygame.KEYDOWN:
                 if event.key == K_F11:
                     Game.toggle_fullscreen()
                 elif event.key == K_ESCAPE:
                     pygame.quit()
                     exit()
+            
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
 
         # CLEAR FRAME ----------------------- #
         Game.WIN.fill(Game.COLORS.BACKGROUND)
@@ -43,6 +51,8 @@ def run():
 
         elif Game.MODE == "main_menu":
             background.draw()
+            main_menu.check_buttons(mx, my, click)
+            main_menu.draw()
 
         elif Game.MODE == "settings":
             pass
@@ -65,7 +75,10 @@ if __name__ == "__main__":
     pygame.display.init()
     pygame.display.set_caption("VStris!")
     WIN = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    pygame.font.init()
+    pygame.mixer.init()
     Blocks.init()
+    Sounds.init()
 
     # START GAME -------------------------------- #
     Game.start(WIN)

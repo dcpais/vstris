@@ -1,8 +1,8 @@
 import effects
+from menu import Button
+from game import Game
 
 import pygame
-import os
-import PIL
 from typing import Tuple
 
 
@@ -31,18 +31,10 @@ class Testing:
         self.running = True
         Testing.WIDTH = dimensions[0]
         Testing.HEIGHT = dimensions[1]
+        Game.start(self.win)
 
         # LOAD ASSETS -------------------------- #
-        self.load_assets()
-
-    
-    def load_assets(self):
-        self.im1 = pygame.image.load(os.path.join("assets", "Testing", "flower.jpg")).convert()
-        size = self.im1.get_size()
-        self.im1 = pygame.transform.scale(self.im1, (size[0] * 1, size[1] * 1))
-        self.im1 = effects.blur_surface(self.im1, 2)
-        self.im1 = effects.surf_brightness(self.im1, 0)
-
+        self.button = Button(100, 100, 300, 80)
 
     def run(self):
         """
@@ -63,7 +55,7 @@ class Testing:
             self.win.fill(Testing.WHITE)
 
             # DRAW ------------------------------ #
-            self.win.blit(self.im1, (0, 0))
+            self.button.draw()
 
             # UPDATE SCREEN --------------------- #
             pygame.display.update()
